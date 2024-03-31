@@ -2,11 +2,8 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Check out the code from the GitHub repository
-                git url: 'https://github.com/kinza-yousaf/spring-petclinic.git'
-            }
+        steps {
+        checkout scm
         }
 
         stage('SonarQube analysis') {
