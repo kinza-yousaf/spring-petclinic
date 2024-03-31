@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define environment variables if necessary
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -37,15 +33,15 @@ pipeline {
     }
 
     post {
-        // Define post-build actions
-        always {
-            // e.g., clean up, notify someone, etc.
-        }
-        success {
-            // Actions to perform if the build was successful
-        }
-        failure {
-            // Actions to perform if the build failed
-        }
+    always {
+        echo 'This will always run'
     }
+    success {
+        echo 'Build succeeded'
+    }
+    failure {
+        echo 'Build failed'
+    }
+}
+
 }
