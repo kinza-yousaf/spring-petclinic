@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    tools {
+        // Use the name of the Maven installation you've configured in Jenkins Global Tool Configuration
+        maven 'mvn'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -8,17 +13,12 @@ pipeline {
             }
         }
 
-
         stage('SonarQube analysis') {
             steps {
-                // Run SonarQube analysis
                 withSonarQubeEnv('my-SQserver-1') {
                     script {
-                        // If your project uses Maven:
+                        // Since Maven is configured in 'tools', just use 'mvn'
                         sh 'mvn clean verify sonar:sonar'
-                        
-                        // If your project uses Gradle:
-                        // sh './gradlew sonarqube'
                     }
                 }
             }
@@ -26,22 +26,21 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Build the project, e.g., with Maven
+                // Again, just use 'mvn' as it's specified in 'tools'
                 sh 'mvn clean package'
             }
         }
     }
 
     post {
-    always {
-        echo 'This will always run'
+        always {
+            echo 'This will always run'
+        }
+        success {
+            echo 'Build succeeded'
+        }
+        failure {
+            echo 'Build failed'
+        }
     }
-    success {
-        echo 'Build succeeded'
-    }
-    failure {
-        echo 'Build failed'
-    }
-}
-
 }
