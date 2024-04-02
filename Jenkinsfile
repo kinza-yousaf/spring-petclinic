@@ -13,6 +13,13 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                // Again, just use 'mvn' as it's specified in 'tools'
+                sh 'mvn clean package'
+            }
+        }
+
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('my-SQserver-1') {
@@ -21,13 +28,6 @@ pipeline {
                         sh 'mvn clean verify sonar:sonar'
                     }
                 }
-            }
-        }
-
-        stage('Build') {
-            steps {
-                // Again, just use 'mvn' as it's specified in 'tools'
-                sh 'mvn clean package'
             }
         }
     }
