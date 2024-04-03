@@ -30,16 +30,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Run Application') {
-            steps {
-                script {
-                    // Jar file is named 'petclinic.jar' and is in the 'target' directory
-                    sh 'java -jar target/spring-petclinic-3.2.0-SNAPSHOT.jar'
-                }
-            }
-        }
-
     }
 
     post {
