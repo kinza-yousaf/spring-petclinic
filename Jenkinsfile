@@ -34,13 +34,13 @@ pipeline {
 
     post {
         always {
-            echo 'This will always run, lets check'
+            echo 'This will always run'
         }
         success {
-            echo 'Build succeeded'
+            echo 'Build succeeded.'
         }
         failure {
-            echo 'Build failed'
+            echo 'Build failed.'
         }
     }
 }
