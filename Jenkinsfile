@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Use the name of the Maven installation you've configured in Jenkins Global Tool Configuration
+        // mvn is the name of the Maven installation I've configured in Jenkins Global Tool Configuration
         maven 'mvn'
     }
 
@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Again, just use 'mvn' as it's specified in 'tools'
+                // Using maven to build
                 sh 'mvn clean package'
             }
         }
@@ -24,18 +24,25 @@ pipeline {
             steps {
                 withSonarQubeEnv('my-SQserver-1') {
                     script {
-                        // Since Maven is configured in 'tools', just use 'mvn'
+                        // Performing static analysis
                         sh 'mvn clean verify sonar:sonar'
                     }
                 }
             }
         }
+
+        stage('Run Application') {
+            steps {
+                script {
+                    // Jar file is named 'petclinic.jar' and is in the 'target' directory
+                    sh 'java -jar target/petclinic.jar'
+                }
+            }
+        }
+
     }
 
     post {
-        always {
-            echo 'This will always run'
-        }
         success {
             echo 'Build succeeded.'
         }
