@@ -23,7 +23,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Running the Ansible playbook
-                sh 'ansible-playbook -i /path/to/inventory/file deploy_petclinic.yaml'
+                sh 'ansible-playbook -i hosts deploy_petclinic.yaml'
             }
         }
     }
