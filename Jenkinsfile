@@ -20,24 +20,20 @@ pipeline {
             }
         }
 
-        stage('SonarQube analysis') {
+        stage('Deploy') {
             steps {
-                withSonarQubeEnv('my-SQserver-1') {
-                    script {
-                        // Performing static analysis
-                        sh 'mvn clean verify sonar:sonar'
-                    }
-                }
+                // Running the Ansible playbook
+                sh 'ansible-playbook -i hosts deploy_petclinic.yaml'
             }
         }
     }
 
     post {
         success {
-            echo 'Build succeeded.'
+            echo 'Build and Deployment succeeded.'
         }
         failure {
-            echo 'Build failed.'
+            echo 'Build or Deployment failed.'
         }
     }
 }
