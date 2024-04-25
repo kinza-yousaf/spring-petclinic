@@ -19,13 +19,6 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-
-        stage('Deploy') {
-            steps {
-                // Running the Ansible playbook
-                sh 'ansible-playbook -i hosts deploy_petclinic.yaml'
-            }
-        }
     }
 
     post {
