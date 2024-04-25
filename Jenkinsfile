@@ -19,6 +19,13 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                // Running the Ansible playbook
+                sh 'ansible-playbook -i /path/to/inventory/file deploy_petclinic.yaml'
+            }
+        }
     }
 
     post {
